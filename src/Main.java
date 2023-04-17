@@ -19,21 +19,55 @@ public class Main {
         String userInputCoords;
 
         do{
-            System.out.println("Please enter two digit coordinate (ie:32) : ");
+            System.out.println("Please enter two digit coordinate (ie:32) or type EXIT to quit: ");
             while (!scanner.hasNext()){
                 scanner.next();
             }
             userInputCoords = scanner.nextLine();
-            x = Integer.valueOf(userInputCoords.toString().substring(0,1));
-            y = Integer.valueOf(userInputCoords.toString().substring(1,2));
-            if(x < 0 || x >4 || y < 0|| y > 4){
-                System.out.println("Invalid entry, you must enter digits between 0 and 4.");
-            }else{
-                  play(minedCoords, userInputCoords);
+            if (userInputCoords.equalsIgnoreCase("exit")){
+                System.exit(0);
+            }else {
+                try{
+                    x = Integer.valueOf(userInputCoords.toString().substring(0,1));
+                    y = Integer.valueOf(userInputCoords.toString().substring(1,2));
+                    if((x >= 0 && x <= 4) && (y >= 0 && y <= 4 )){
+                        play(minedCoords, userInputCoords);
+                    }
+              }catch (NumberFormatException e){
+                    System.out.println("Invalid entry, you must enter digits between 0 and 4 or type EXIT to quit.");
+                }
             }
         }while (true);
     }
 
+    /*
+    public static int choseLevel(){
+        int level = 0;
+
+        System.out.println("Chose a level");
+        Scanner scanner = new Scanner(System.in);
+
+        while ( !scanner.hasNextInt()){
+            scanner.nextInt();
+        }
+
+        level = scanner.nextInt();
+
+        do{
+            if(level == 1){
+                System.out.println("Hay " + level);
+                break;
+            }else if (level == 2){
+                System.out.println("Hay " + level);
+                break;
+            }
+            System.out.print("You must choose 1 or 2. Please try again: ");
+            level = scanner.nextInt();
+        }while (level != 1 || level != 2);
+
+        return level;
+    }
+*/
     public static void play(ArrayList minedCoords, String userInput) {
 
         for (Object mine: minedCoords
@@ -148,4 +182,3 @@ public class Main {
         return randomNumber;
     }
 }
-
